@@ -1,0 +1,7 @@
+# Production server (Mercy-Installer): only the differences.
+# extends: [ setup.yaml ]   (default) - in your network: [ setup.yaml, networks/example.yaml ]
+kernel:
+  # domain of this instance, without http://
+  domain: "proxtop.example.com"
+  # the release to run (image tag); change it and run "./mercy update" to switch releases
+  version: "1.0.0"

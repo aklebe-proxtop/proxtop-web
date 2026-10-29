@@ -1,0 +1,5 @@
+# Dev environment: only the differences.
+# extends: [ setup.yaml ]   (default) - in your network: [ setup.yaml, networks/example.yaml ]
+kernel:
+  # domain of this instance, without http:// (differs per instance on the same host)
+  domain: "proxtop.dev.example.com"

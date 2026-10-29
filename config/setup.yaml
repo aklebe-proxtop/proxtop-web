@@ -1,0 +1,55 @@
+# Base config of ProxTop, versioned. Only what differs from the Mercy defaults:
+# "./mercy config --all" shows every key with its default (vendor/aklebe-laravel/mercy-php-deployment/resources/defaults).
+#
+# This is the public template: replace every example value (example.com, 192.0.2.x, my-org) with your own.
+# Layers: Mercy defaults -> setup.yaml -> networks/*.yaml -> <stage>.yaml -> secrets.yaml (not versioned)
+kernel:
+  name: "proxtop"
+  # docker image: ghcr.io/<git.registry_namespace>/proxtop-web:<version>
+  image: "proxtop-web"
+  theme: "central-ui"
+
+git:
+  # owner of the image you build
+  registry_namespace: "my-org"
+
+# the list replaces the defaults as a whole, so it contains the default items too
+env_strict_literals:
+  - DB_PASSWORD
+  - REDIS_PASSWORD
+  - MAIL_PASSWORD
+  - NPM_API_PASSWORD
+  - PFSENSE_API_KEY
+
+# pfSense API of CentralUi (the key in secrets.yaml)
+env:
+  PFSENSE_URL: "https://192.0.2.1"
+  PFSENSE_API_KEY: ""
+  PFSENSE_VERIFY_TLS: false
+
+# Mercy base modules plus CentralUi
+requires:
+  - vendor: "aklebe-laravel"
+    type: "module"
+    branch: "master"
+    dev_mode: true
+    branch_prefix: "dev-"
+    # single quotes, otherwise the placeholders break
+    repository: 'git@github.com:${{module_vendor_name}}/${{module_snake_name_git}}.git'
+    names:
+      - "system-base-module"
+      - "deploy-env-module"
+      - "website-base-module"
+      - "acl-module"
+      - "data-table-module"
+      - "form-module"
+      - "central-ui-module"
+  - vendor: "aklebe-laravel"
+    type: "theme"
+    branch: "master"
+    dev_mode: true
+    branch_prefix: "dev-"
+    repository: 'git@github.com:${{module_vendor_name}}/${{module_snake_name_git}}.git'
+    names:
+      - "central-ui-theme"
+      - "mercy-blank-theme"
