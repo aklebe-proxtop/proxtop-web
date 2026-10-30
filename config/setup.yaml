@@ -27,7 +27,7 @@ env:
   PFSENSE_API_KEY: ""
   PFSENSE_VERIFY_TLS: false
 
-# Mercy base modules plus CentralUi
+# own modules and themes of ProxTop. The Mercy base modules come with the Mercy defaults (base_requires, released versions).
 requires:
   - vendor: "aklebe-laravel"
     type: "module"
@@ -37,12 +37,6 @@ requires:
     # single quotes, otherwise the placeholders break
     repository: 'git@github.com:${{module_vendor_name}}/${{module_snake_name_git}}.git'
     names:
-      - "system-base-module"
-      - "deploy-env-module"
-      - "website-base-module"
-      - "acl-module"
-      - "data-table-module"
-      - "form-module"
       - "central-ui-module"
   - vendor: "aklebe-laravel"
     type: "theme"
@@ -52,4 +46,3 @@ requires:
     repository: 'git@github.com:${{module_vendor_name}}/${{module_snake_name_git}}.git'
     names:
       - "central-ui-theme"
-      - "mercy-blank-theme"
