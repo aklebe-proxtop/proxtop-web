@@ -108,12 +108,13 @@ As soon as `config/instances/` contains files, every command needs an instance. 
 
 ## Production
 
-1. Set the release number in `config/build.yaml` (`kernel.version`) and set `git.registry_namespace` in
-   `config/setup.yaml` to the owner of your image.
-2. Build and push the image in the dev folder: `./mercy build`.
+1. Set `git.registry_namespace` in `config/setup.yaml` to the owner of your image.
+2. Build and push the image in the dev folder: `./mercy build`. The release number comes from `kernel.version: "auto"`
+   (`config/setup.yaml`): the next release after the tags in the registry (the first one is `1.0.0`);
+   `./mercy build --tag=2` (or `2.1`, `2.1.0`) jumps.
 3. On the server, install it with the [Mercy-Installer](https://github.com/aklebe-laravel/mercy-installer), which uses
-   your copy of this repository as `project/` (stage `prod`, release `kernel.version` of `config/prod.yaml` or the
-   instance).
+   your copy of this repository as `project/` (stage `prod`). With `auto` every `./mercy update` runs the newest
+   release; to stay on one, set `kernel.version` in `config/prod.yaml` or the instance.
 
 ## License
 
