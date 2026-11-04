@@ -2,7 +2,8 @@
 # "./mercy config --all" shows every key with its default (vendor/aklebe-laravel/mercy-php-deployment/resources/defaults).
 #
 # This is the public template: replace every example value (example.com, 192.0.2.x, my-org) with your own.
-# Layers: Mercy defaults -> setup.yaml -> networks/*.yaml -> <stage>.yaml -> secrets.yaml (not versioned)
+# Layers: Mercy defaults -> setup.yaml -> <stage>.yaml (+ its extends) -> secrets.yaml (not versioned)
+#         -> instances/<name>.yaml with its network (wins over secrets.yaml) -> local.yaml (not versioned)
 kernel:
   name: "proxtop"
   # docker image: ghcr.io/<git.registry_namespace>/proxtop-web:<version>
@@ -27,6 +28,8 @@ env_strict_literals:
 
 # pfSense API of CentralUi (the key in secrets.yaml)
 env:
+  # time zone of the times shown and entered (VM group schedules), default UTC; internally everything stays UTC
+  # APP_DISPLAY_TIMEZONE: "Europe/Berlin"
   PFSENSE_URL: "https://192.0.2.1"
   PFSENSE_API_KEY: ""
   PFSENSE_VERIFY_TLS: false
